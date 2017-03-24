@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+    <form action="reg" method="POST">
+        {% csrf_token %}
+        Name:<input type="text" name="html_name">
+        Email:<input type="email" name="html_email">
+        Password:<input type="password" name="html_password">
+        Confirm Password<input type="password" name="html_confirm">
+        <input type="submit" value="Register">
+    </form>
+    <br><hr>
+    <form action="authenticate" method="POST">
+        {% csrf_token %}
+        Email:<input type="email" name="html_email">
+        Password:<input type="password" name="html_password"> 
+        <input type="submit" value="Login">
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     {% load staticfiles %}
+    <link rel="sylesheet" href="{% static 'dashboard/main.css' %}" media="screen" title="no title" charset="UTF-8" >
+    <title>QuoteBoard</title>
+</head>
+<body>
+    <h1>Hello {{ request.session.user_name }}!</h1>
+    <p><a href="{% url 'Main:Logout' %}">Logout</a><p>
+    <form action="{% url 'Board:Quotes' %}" method="POST">
+        {% csrf_token %}
+        Quote by:<input type="text" name="html_title"><br>
+        Quote:<textarea name="html_quote" rows="8" cols="30"></textarea>
+        <input type="submit" value="Add">
+        {% for m in messages %}
+            {{m}}
+        {% endfor %}
+    </form>
+    <h2>Your favorites</h2>
+    {% for f in fav %}
+        <h4>{{f.favorite.quote_by}}:</h4>
+        {{f.favorite.quote}}<br>
+        <a href="">Remove</a>
+    {% endfor %}
+    <hr>
+    {% for quote in quotes %}
+        {{quote.quote_by}}:<br>
+        <p>"{{quote.quote}}"<p>
+        <p>Created by:<p>{{quote.quote_creator.user_name}}
+        <a href="{% url 'Board:Fav' fav_id=quote.id %}">Add to Fav</a>
+        <hr>
+    {% endfor %}
+</body>
+
+</html>
